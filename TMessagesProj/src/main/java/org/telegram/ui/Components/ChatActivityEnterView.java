@@ -5415,7 +5415,12 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
             return;
         }
         CharSequence message = messageEditText == null ? "" : messageEditText.getText();
-        if (parentFragment != null) {
+        if (message != null && message.length() > 0) {
+    String cleanText = message.toString();
+    cleanText = cleanText.replace(" ", " ~ ");
+    message = cleanText;
+}
+if (parentFragment != null) {
             TLRPC.Chat chat = parentFragment.getCurrentChat();
             if (chat != null && chat.slowmode_enabled && !ChatObject.hasAdminRights(chat)) {
                 if (message.length() > accountInstance.getMessagesController().maxMessageLength) {
